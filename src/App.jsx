@@ -1,26 +1,19 @@
 import { useState, useEffect } from "react";
 import { account, ID } from "./lib/appwrite";
 
-function checkSession(id) {
-    const session = localStorage.getItem("cookieFallback");
-    if (session) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 const App = () => {
     const [loggedInUser, setLoggedInUser] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
+
     async function init() {
         try {
             const loggedIn = await account.get();
             setLoggedInUser(loggedIn);
         } catch (err) {
+            console.error(err);
             setLoggedInUser(null);
         }
     }
