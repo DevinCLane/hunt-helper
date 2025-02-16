@@ -1,5 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { account, ID } from "./lib/appwrite";
+
+function checkSession(id) {
+    const session = localStorage.getItem("cookieFallback");
+    if (session) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 const App = () => {
     const [loggedInUser, setLoggedInUser] = useState(null);
@@ -7,12 +16,26 @@ const App = () => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
+    async function init() {
+        try {
+            const loggedIn = await account.get();
+            setLoggedInUser(loggedIn);
+        } catch (err) {
+            setLoggedInUser(null);
+        }
+    }
+
+    useEffect(() => {
+        init();
+    }, []);
+
     async function login(email, password) {
         await account.createEmailPasswordSession(email, password);
         setLoggedInUser(await account.get());
     }
 
     return (
+
         <div>
             <p>
                 {loggedInUser
