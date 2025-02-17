@@ -1,5 +1,6 @@
 import { Auth } from "./components/Auth";
 import { Card } from "./components/Card";
+import { Navbar } from "./components/Navbar"
 import { useAuth } from "./util/useAuth";
 import { useCards } from "./util/useCards";
 
@@ -10,6 +11,7 @@ const App = () => {
     return (
         //consolidate into a login component
         <>
+            <Navbar loggedInUser={loggedInUser} />
             <Auth
                 loggedInUser={loggedInUser}
                 login={login}
