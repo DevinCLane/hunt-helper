@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
-import { account, ID } from "./lib/appwrite";
 import { Auth } from "./components/Auth";
-import { Card } from "./components/Card"
-import { useAuth } from "./util/useAuth"
+import { Card } from "./components/Card";
+import { useAuth } from "./util/useAuth";
 import { useCards } from "./util/useCards";
 
 const App = () => {
@@ -11,10 +9,15 @@ const App = () => {
     return (
         //consolidate into a login component
         <>
-            <Auth loggedInUser={loggedInUser} login={login} logout={logout} register={register} />
+            <Auth
+                loggedInUser={loggedInUser}
+                login={login}
+                logout={logout}
+                register={register}
+            />
             <Card cards={cards} getCards={getCards} />
         </>
-    )
+    );
 };
 
 export default App;

@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { account, ID, databases, Query } from "../lib/appwrite";
-import { defaultCards } from "../config/defaultCards";
+import { useState } from "react";
+import { account, databases, Query } from "../lib/appwrite";
 
 export const useCards = () => {
     const [cards, setCards] = useState([]);
@@ -16,9 +15,9 @@ export const useCards = () => {
                 [Query.equal("userId", [currentUserId])] // queries (optional)
             );
 
-            setCards(result.documents)
+            setCards(result.documents);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
     //TODO: updateCards (status), updateCard(content), deleteCard, createCard
@@ -26,4 +25,4 @@ export const useCards = () => {
         cards,
         getCards,
     };
-}
+};
