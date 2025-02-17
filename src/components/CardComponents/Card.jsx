@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { EditCard } from ".//EditCard"
 
-export const Card = ({ card, handleDeleteCard, handleUpdateContent }) => {
+export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdateIsComplete }) => {
 
 	const [editCard, setEditCard] = useState(false);
 
@@ -79,7 +79,7 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent }) => {
 						<p className="mt-10 text-center text-xs font-medium text-gray-600">isComplete: {`${card.isComplete}`}</p>
 
 						<div className="mt-5 w-full  flex justify-center">
-							<button className="">Take Action</button>
+							<button onClick={() => handleUpdateIsComplete(card.$id, card.isComplete)} className="">Take Action</button>
 						</div>
 					</div>
 				</div>
