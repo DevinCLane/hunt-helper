@@ -76,10 +76,10 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 							</h3>
 						}
 
-						<p className="mt-10 text-center text-xs font-medium text-gray-600">isComplete: {`${card.isComplete}`}</p>
+						<p className="mt-10 text-center text-xs font-medium text-gray-600">{card.isComplete ? "You did it." : "Let's get it done!"}</p>
 
 						<div className="mt-5 w-full  flex justify-center">
-							<button onClick={() => handleUpdateIsComplete(card.$id, card.isComplete)} className="">Take Action</button>
+							<button onClick={() => handleUpdateIsComplete(card.$id, card.isComplete)} className="">{card.isComplete ? "Do it Again!" : "Take Action"}</button>
 						</div>
 					</div>
 				</div>
