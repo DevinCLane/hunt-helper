@@ -1,4 +1,4 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { account, databases, ID, Query } from "../lib/appwrite";
 
 export const useCards = () => {
@@ -22,7 +22,7 @@ export const useCards = () => {
         }
     }
 
-    async function createCard({ content }) {
+    async function createCard({ content, isComplete }) {
         try {
             const currentUser = await account.get();
 
@@ -31,8 +31,8 @@ export const useCards = () => {
                 import.meta.env.VITE_APPWRITE_COLLECTION_CARDS_ID, // collectionId
                 ID.unique(),
                 {
-                    content,
-                    isComplete: false,
+                    content: content,
+                    isComplete: isComplete,
                     userId: currentUser.$id,
                 }
             );
@@ -45,7 +45,28 @@ export const useCards = () => {
         }
     }
 
-    async function updateContent() {}
+    async function updateContent(cardId, newContent) {
+        try {
+            const updatedCard = await databases.updateDocument(
+                import.meta.env.VITE_APPWRITE_DATABASE_ID, // databaseId
+                import.meta.env.VITE_APPWRITE_COLLECTION_CARDS_ID, // collectionId
+                cardId,
+                {
+                    content: newContent,
+                }
+            );
+
+            setCards((prevCards) =>
+                prevCards.map((card) =>
+                    card.$id === cardId ? updatedCard : card
+                )
+            );
+            return updatedCard;
+        } catch (error) {
+            console.error("error updating card content:", error);
+            throw error;
+        }
+    }
 
     async function updateIsComplete() {}
 
