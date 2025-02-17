@@ -18,7 +18,6 @@ export const useCards = () => {
             setCards(result.documents);
         } catch (error) {
             console.error(error);
-            console.error(error)
             setCards([])
         }
     }
