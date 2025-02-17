@@ -10,5 +10,5 @@ export const defaultCards = [
     {
         isComplete: false,
         content: "Find one engineer to connect with.",
-    }
-]
+    },
+];

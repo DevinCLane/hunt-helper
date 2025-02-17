@@ -1,21 +1,19 @@
-import { React, useState, useEffect } from 'react'
+/* eslint-disable react/prop-types */
+import { useEffect } from "react";
 
 export const Card = ({ cards, getCards, loggedInUser }) => {
-
     useEffect(() => {
         getCards();
-    }, [loggedInUser]);
+    }, [loggedInUser, getCards]);
 
     return (
         <section>
-
-            {cards.map(card => (
+            {cards.map((card) => (
                 <div key={card.$id}>
                     Content: {card.content}
-                    Status: {`${card.status}`}
+                    isComplete: {`${card.isComplete}`}
                 </div>
             ))}
-
         </section>
-    )
-}
+    );
+};

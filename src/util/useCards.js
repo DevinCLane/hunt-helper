@@ -18,29 +18,26 @@ export const useCards = () => {
             setCards(result.documents);
         } catch (error) {
             console.error(error);
-            setCards([])
+            console.error(error);
+            setCards([]);
         }
     }
 
-    async function createCard() {
+    async function createCard() { }
 
-    }
+    async function updateContent() { }
 
-    async function updateContent() {
+    async function updateIsComplete() { }
 
-    }
-
-    async function updateIsComplete() {
-
-    }
-
-    async function deleteCard() {
-
-    }
+    async function deleteCard() { }
 
     //TODO: updateCards (status), updateCard(content), deleteCard, createCard
     return {
         cards,
         getCards,
+        createCard,
+        updateContent,
+        updateIsComplete,
+        deleteCard,
     };
 };
