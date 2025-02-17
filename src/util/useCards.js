@@ -15,7 +15,6 @@ export const useCards = () => {
     async function getCards() {
         try {
             const currentUser = await getCurrentUser();
-
             const result = await databases.listDocuments(
                 DATABASE_ID,
                 COLLECTION_CARDS_ID,
@@ -27,13 +26,11 @@ export const useCards = () => {
             console.error(error);
             setCards([]);
         }
-
     }
 
     async function createCard(content, isComplete = false) {
+        console.log(cards)
         try {
-
-
             const currentUser = await getCurrentUser();
 
             const newCard = await databases.createDocument(
@@ -48,7 +45,7 @@ export const useCards = () => {
             );
 
             setCards((prevCards) => [...prevCards, newCard]);
-
+            console.log(cards)
             return newCard;
         } catch (error) {
             console.error("error creating card:", error);

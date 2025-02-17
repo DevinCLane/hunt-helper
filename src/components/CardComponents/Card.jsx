@@ -3,9 +3,6 @@ import { useState, useEffect } from "react";
 import { EditCard } from ".//EditCard"
 
 export const Card = ({ card, handleDeleteCard, handleUpdateContent }) => {
-	// useEffect(() => {
-	//     getCards();
-	// }, [loggedInUser]);
 
 	const [editCard, setEditCard] = useState(false);
 
