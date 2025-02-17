@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { account, ID, databases, Query } from "../lib/appwrite";
-import { defaultCards } from "../config/defaultCards";
+import { account, databases, Query } from "../lib/appwrite";
 
 export const useCards = () => {
     const [cards, setCards] = useState([]);
@@ -19,8 +18,26 @@ export const useCards = () => {
             setCards(result.documents)
         } catch (error) {
             console.error(error)
+            setCards([])
         }
     }
+
+    async function createCard() {
+
+    }
+
+    async function updateContent() {
+
+    }
+
+    async function updateIsComplete() {
+
+    }
+
+    async function deleteCard() {
+
+    }
+
     //TODO: updateCards (status), updateCard(content), deleteCard, createCard
     return {
         cards,

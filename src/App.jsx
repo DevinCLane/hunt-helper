@@ -12,7 +12,7 @@ const App = () => {
         //consolidate into a login component
         <>
             <Auth loggedInUser={loggedInUser} login={login} logout={logout} register={register} />
-            <Card cards={cards} getCards={getCards} />
+            <Card cards={cards} getCards={getCards} loggedInUser={loggedInUser} />
         </>
     )
 };

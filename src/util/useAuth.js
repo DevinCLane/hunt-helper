@@ -11,7 +11,7 @@ export const useAuth = () => {
             setLoggedInUser(loggedIn);
         } catch (err) {
             console.log(err);
-            // setLoggedInUser(null);
+            setLoggedInUser(null);
         }
     }
 
@@ -64,6 +64,6 @@ export const useAuth = () => {
         loggedInUser,
         login,
         register,
-        logout
+        logout,
     };
 }

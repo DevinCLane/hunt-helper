@@ -1,11 +1,10 @@
 import { React, useState, useEffect } from 'react'
 
-export const Card = ({ cards, getCards }) => {
-
+export const Card = ({ cards, getCards, loggedInUser }) => {
 
     useEffect(() => {
         getCards();
-    }, []);
+    }, [loggedInUser]);
 
     return (
         <section>
