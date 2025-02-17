@@ -8,6 +8,7 @@ import { useCards } from "./util/useCards";
 const App = () => {
     const { loggedInUser, login, logout, register } = useAuth(); //created a custom hook for auth
     const { cards, getCards } = useCards();
+
     return (
         //consolidate into a login component
         <>

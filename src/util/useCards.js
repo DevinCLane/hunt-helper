@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { account, databases, Query } from "../lib/appwrite";
 
 export const useCards = () => {
@@ -15,8 +15,9 @@ export const useCards = () => {
                 [Query.equal("userId", [currentUserId])] // queries (optional)
             );
 
-            setCards(result.documents)
+            setCards(result.documents);
         } catch (error) {
+            console.error(error);
             console.error(error)
             setCards([])
         }
@@ -43,4 +44,4 @@ export const useCards = () => {
         cards,
         getCards,
     };
-}
+};
