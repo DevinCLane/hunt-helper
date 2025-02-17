@@ -1,18 +1,25 @@
 import { useState } from "react";
 import { account, databases, ID, Query } from "../lib/appwrite";
 
+const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
+const COLLECTION_CARDS_ID = import.meta.env.VITE_APPWRITE_COLLECTION_CARDS_ID;
+
 export const useCards = () => {
     const [cards, setCards] = useState([]);
 
+    const getCurrentUser = async () => {
+        const user = await account.get();
+        return user;
+    };
+
     async function getCards() {
         try {
-            const currentUser = await account.get();
-            const currentUserId = currentUser.$id;
+            const currentUser = await getCurrentUser();
 
             const result = await databases.listDocuments(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID, // databaseId
-                import.meta.env.VITE_APPWRITE_COLLECTION_CARDS_ID, // collectionId
-                [Query.equal("userId", [currentUserId])] // queries (optional)
+                DATABASE_ID,
+                COLLECTION_CARDS_ID,
+                [Query.equal("userId", [currentUser.$id])] // queries (optional)
             );
 
             setCards(result.documents);
@@ -24,15 +31,15 @@ export const useCards = () => {
 
     async function createCard({ content, isComplete }) {
         try {
-            const currentUser = await account.get();
+            const currentUser = await getCurrentUser();
 
             const newCard = await databases.createDocument(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID, // databaseId
-                import.meta.env.VITE_APPWRITE_COLLECTION_CARDS_ID, // collectionId
+                DATABASE_ID,
+                COLLECTION_CARDS_ID,
                 ID.unique(),
                 {
-                    content: content,
-                    isComplete: isComplete,
+                    content,
+                    isComplete,
                     userId: currentUser.$id,
                 }
             );
@@ -48,8 +55,8 @@ export const useCards = () => {
     async function updateContent(cardId, newContent) {
         try {
             const updatedCard = await databases.updateDocument(
-                import.meta.env.VITE_APPWRITE_DATABASE_ID, // databaseId
-                import.meta.env.VITE_APPWRITE_COLLECTION_CARDS_ID, // collectionId
+                DATABASE_ID,
+                COLLECTION_CARDS_ID,
                 cardId,
                 {
                     content: newContent,
@@ -68,9 +75,44 @@ export const useCards = () => {
         }
     }
 
-    async function updateIsComplete() {}
+    async function updateIsComplete(cardId, isComplete) {
+        try {
+            const updatedCard = await databases.updateDocument(
+                DATABASE_ID,
+                COLLECTION_CARDS_ID,
+                cardId,
+                { isComplete }
+            );
 
-    async function deleteCard() {}
+            setCards((prevCards) =>
+                prevCards.map((card) =>
+                    card.$id === cardId ? updatedCard : card
+                )
+            );
+            return updatedCard;
+        } catch (error) {
+            console.error("error updating card content:", error);
+            throw error;
+        }
+    }
+
+    async function deleteCard(cardId) {
+        try {
+            await databases.deleteDocument(
+                DATABASE_ID,
+                COLLECTION_CARDS_ID,
+                cardId
+            );
+
+            setCards((prevCards) =>
+                prevCards.filter((card) => card.$id !== card)
+            );
+            return true;
+        } catch (error) {
+            console.error("error deleting card:", error);
+            throw error;
+        }
+    }
 
     //TODO: updateCards (status), updateCard(content), deleteCard, createCard
     return {
