@@ -1,14 +1,14 @@
 export const defaultCards = [
     {
-        status: false,
+        isComplete: false,
         content: "Compose the first sentence of a hitlist message.",
     },
     {
-        status: false,
+        isComplete: false,
         content: "Find one target company.",
     },
     {
-        status: false,
+        isComplete: false,
         content: "Find one engineer to connect with.",
-    }
-]
+    },
+];
