@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 // when logout, view the modal again
 //
 
-export const AuthModal = ({ isOpen, onClose, login, register }) => {
+export const AuthModal = ({ isOpen, onClose, login, register, loggedInUser }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
