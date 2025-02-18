@@ -10,12 +10,13 @@ export const Cards = ({ cards, getCards, loggedInUser }) => {
         getCards();
     }, [loggedInUser]);
 
-    const { createCard, deleteCard, updateContent } = useCards();
+    const { createCard, deleteCard, updateContent, updateIsComplete } = useCards();
 
     const [isAddCard, setAddCard] = useState(false)
 
     function handleAddCard() {
         setAddCard(!isAddCard);
+
     }
 
     async function handleCreateCard(content) {
@@ -32,15 +33,22 @@ export const Cards = ({ cards, getCards, loggedInUser }) => {
     }
 
     async function handleUpdateContent(cardId, content) {
-        console.log("cardId: ", cardId, "content: ", content)
+        // console.log("cardId: ", cardId, "content: ", content)
         await updateContent(cardId, content);
         getCards();
     }
 
+    async function handleUpdateIsComplete(cardId, isComplete) {
+        // console.log("cardId: ", cardId, "isComplete: ", isComplete)
+        await updateIsComplete(cardId, isComplete); //update the card with the OPPOSITE of current isComplete boolean
+        getCards();
+    }
+
+
     return (
         <section className="pb-36">
             {cards.map((card) => (
-                <Card key={card.$id} card={card} handleDeleteCard={handleDeleteCard} handleUpdateContent={handleUpdateContent} />
+                <Card key={card.$id} card={card} handleDeleteCard={handleDeleteCard} handleUpdateContent={handleUpdateContent} handleUpdateIsComplete={handleUpdateIsComplete} />
             ))}
             <div className="w-full my-36 text-center">
                 {isAddCard && <AddCard handleCreateCard={handleCreateCard} />}
