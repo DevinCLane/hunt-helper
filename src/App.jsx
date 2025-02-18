@@ -18,13 +18,7 @@ const App = () => {
 
     return (
         <>
-            <AuthModal
-                isOpen={!loggedInUser || showAuthModal}
-                onClose={() => setShowAuthModal(false)}
-                login={login}
-                register={register}
-            />
-            {loggedInUser && (
+            {loggedInUser && !showAuthModal ? (
                 <>
                     <Navbar
                         loggedInUser={loggedInUser}
@@ -37,9 +31,15 @@ const App = () => {
                         getCards={getCards}
                         loggedInUser={loggedInUser}
                     />
-
                     <Footer />
                 </>
+            ) : (
+                <AuthModal
+                    isOpen={true}
+                    onClose={() => setShowAuthModal(false)}
+                    login={login}
+                    register={register}
+                />
             )}
         </>
     );
