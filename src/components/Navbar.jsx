@@ -88,6 +88,7 @@ export const Navbar = ({ loggedInUser, login, logout, register }) => {
                         setPassword={setPassword}
                         name={name}
                         setName={setName}
+                        loggedInUser={loggedInUser}
                     />
                 </div>
             </header>
