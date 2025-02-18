@@ -28,7 +28,6 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 
 	}
 
-
 	return (
 		<>
 			<div
@@ -37,7 +36,7 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 				<div className="w-full flex justify-end">
 					<span className="inline-flex overflow-hidden rounded-md border bg-white shadow-xs">
 						<button
-							className="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+							className="inline-block  p-3 text-gray-700 hover:bg-gray-50 focus:relative"
 							title="Edit Card"
 							onClick={handleEdit}
 						>

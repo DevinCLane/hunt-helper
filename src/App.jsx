@@ -4,12 +4,16 @@ import { Footer } from "./components/Footer";
 import { useAuth } from "./util/useAuth";
 import { useCards } from "./util/useCards";
 import { AuthModal } from "./components/AuthModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
     const { loggedInUser, login, logout, register } = useAuth();
     const { cards, getCards } = useCards();
-    const [showAuthModal, setShowAuthModal] = useState(true);
+    const [showAuthModal, setShowAuthModal] = useState(false);
+
+    useEffect(() => {
+        setShowAuthModal(!loggedInUser);
+    }, [loggedInUser]);
 
     const handleLogout = () => {
         logout();
