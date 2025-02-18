@@ -1,20 +1,38 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { EditCard } from ".//EditCard"
+import { EditCard } from "./EditCard"
+import { useTimer } from 'react-timer-hook';
+
+// import { pause } from '../../assets/pause.svg'
+// import play from '../../assets/play.svg'
+// import restart from '../../assets/restart.svg'
 
 export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdateIsComplete }) => {
 
 	const [editCard, setEditCard] = useState(false);
+	const [showTimer, setShowTimer] = useState(false);
 
 	function handleEdit() {
 		setEditCard(!editCard)
+	}
+
+	const time = new Date();
+	time.setSeconds(time.getSeconds() + 120);
+
+	function handleSetShowTimer() {
+		if (card.isComplete) {
+			handleUpdateIsComplete(card.$id, false)
+		} else {
+			setShowTimer(!showTimer)
+		}
+
 	}
 
 
 	return (
 		<>
 			<div
-				className=" mx-auto mt-24 min-w-1/4  max-w-4xl relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
+				className=" my-2 mx-auto mt-24 min-w-1/4  max-w-4xl relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
 			>
 				<div className="w-full flex justify-end">
 					<span className="inline-flex overflow-hidden rounded-md border bg-white shadow-xs">
@@ -79,8 +97,14 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 						<p className="mt-10 text-center text-xs font-medium text-gray-600">{card.isComplete ? "You did it." : "Let's get it done!"}</p>
 
 						<div className="mt-5 w-full  flex justify-center">
-							<button onClick={() => handleUpdateIsComplete(card.$id, card.isComplete)} className="">{card.isComplete ? "Do it Again!" : "Take Action"}</button>
+							<button onClick={handleSetShowTimer} className="">{card.isComplete ? "Do it Again!" : "Take Action!"}</button>
 						</div>
+
+						{(showTimer && !card.isComplete) && <div>
+							<TwoMinTimer expiryTimestamp={time} cardId={card.$id} handleUpdateIsComplete={handleUpdateIsComplete} />
+						</div>
+						}
+
 					</div>
 				</div>
 			</div>
@@ -88,3 +112,37 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 
 	);
 };
+
+
+
+function TwoMinTimer({ expiryTimestamp, cardId, handleUpdateIsComplete }) {
+	const {
+		totalSeconds,
+		pause,
+		resume,
+		restart,
+	} = useTimer({
+		expiryTimestamp, onExpire: () => {
+			alert("You did it!")
+			handleUpdateIsComplete(cardId, true);
+		}
+	});
+
+
+	return (
+		<div style={{ textAlign: 'center' }}>
+			<div className="my-5" style={{ fontSize: '20px' }}>
+				<span>{totalSeconds}</span>
+			</div>
+			{/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
+			{/* <button onClick={start}>Start</button> */}
+			<button className="mx-2" onClick={pause}>Pause</button>
+			<button className="mx-2" onClick={resume}>Resume</button>
+			<button className="mx-2" onClick={() => {
+				const time = new Date();
+				time.setSeconds(time.getSeconds() + 120);
+				restart(time)
+			}}>Restart</button>
+		</div>
+	);
+}

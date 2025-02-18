@@ -16,6 +16,7 @@ export const Cards = ({ cards, getCards, loggedInUser }) => {
 
     function handleAddCard() {
         setAddCard(!isAddCard);
+
     }
 
     async function handleCreateCard(content) {
@@ -39,7 +40,7 @@ export const Cards = ({ cards, getCards, loggedInUser }) => {
 
     async function handleUpdateIsComplete(cardId, isComplete) {
         // console.log("cardId: ", cardId, "isComplete: ", isComplete)
-        await updateIsComplete(cardId, !isComplete); //update the card with the OPPOSITE of current isComplete boolean
+        await updateIsComplete(cardId, isComplete); //update the card with the OPPOSITE of current isComplete boolean
         getCards();
     }
 
