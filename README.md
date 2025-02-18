@@ -1,6 +1,6 @@
 # Hunt Helper
 
-Imagine you are trying to land that job. There are so many tasks you need complete to get the (job) hunt done right.
+Imagine you are trying to land that job. There are so many tasks you need to complete to get the (job) hunt done right.
 
 -   You need to work on your professional checklist.
 -   You need to share your progress on Twitter or BlueSky.
