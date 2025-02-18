@@ -7,11 +7,16 @@ export const Navbar = ({ loggedInUser, login, logout, register }) => {
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
 
+
+    const messageIndex = Math.floor(Math.random() * 5);
+
     return (
         <div>
             <header className="bg-white">
                 <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
                     <div>Hunt Helper! 🏹</div>
+
+                    <div className="font-extrabold">You can do it, {loggedInUser.name}!</div>
 
                     <div className="flex flex-1 items-center  justify-end">
                         <div className="flex items-center gap-4">

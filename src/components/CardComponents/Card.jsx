@@ -31,10 +31,10 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 	return (
 		<>
 			<div
-				className=" my-2 mx-auto mt-24 min-w-1/4  max-w-4xl relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8"
+				className=" my-2 mx-auto mt-24 min-w-1/4  max-w-4xl relative block overflow-hidden rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8"
 			>
-				<div className="w-full flex justify-end">
-					<span className="inline-flex overflow-hidden rounded-md border bg-white shadow-xs">
+				<div className="w-full flex justify-end ">
+					<div className="inline-flex overflow-hidden rounded-md  bg-white shadow-xs">
 						<button
 							className="inline-block  p-3 text-gray-700 hover:bg-gray-50 focus:relative"
 							title="Edit Card"
@@ -78,7 +78,7 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 							</svg>
 						</button>
 
-					</span>
+					</div>
 				</div>
 				<span
 					className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-500 via-blue-300 to-purple-400"
@@ -96,7 +96,7 @@ export const Card = ({ card, handleDeleteCard, handleUpdateContent, handleUpdate
 						<p className="mt-10 text-center text-xs font-medium text-gray-600">{card.isComplete ? "You did it." : "Let's get it done!"}</p>
 
 						<div className="mt-5 w-full  flex justify-center">
-							<button onClick={handleSetShowTimer} className="">{card.isComplete ? "Do it Again!" : "Take Action!"}</button>
+							<button onClick={handleSetShowTimer} className="">{card.isComplete ? "Do it Again" : "Take Action"}</button>
 						</div>
 
 						{(showTimer && !card.isComplete) && <div>

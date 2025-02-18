@@ -12,7 +12,7 @@ export const EditCard = ({ card, formerText, handleUpdateContent, handleEdit }) 
             <div>
                 <textarea
                     id="changeCard"
-                    className="text-center mt-2 w-full text-lg rounded-xl border-2 border-gray-400 align-top sm:text-sm p-4"
+                    className="text-center mt-2 min-w-1/4  max-w-4xl  text-lg rounded-xl border-2 border-gray-400 align-top sm:text-sm p-4"
                     rows="4"
                     value={text}
                     onChange={handleChange}

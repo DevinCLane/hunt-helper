@@ -31,6 +31,9 @@ export const useCards = () => {
     async function createCard(content, isComplete = false) {
         console.log(cards)
         try {
+            if (content.length === 0) {
+                throw error
+            }
             const currentUser = await getCurrentUser();
 
             const newCard = await databases.createDocument(
