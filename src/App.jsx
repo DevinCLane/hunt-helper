@@ -1,91 +1,34 @@
-import { useState, useEffect } from "react";
-import { account, ID } from "./lib/appwrite";
-
+import { Auth } from "./components/Auth";
+import { Cards } from "./components/Cards";
+import { Navbar } from "./components/Navbar"
+import { Footer } from "./components/Footer"
+import { useAuth } from "./util/useAuth";
+import { useCards } from "./util/useCards";
+import { useState } from "react";
 const App = () => {
-    const [loggedInUser, setLoggedInUser] = useState(null);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [name, setName] = useState("");
+    const { loggedInUser, login, logout, register } = useAuth(); //created a custom hook for auth
+    const { cards, getCards } = useCards();
 
-
-    async function init() {
-        try {
-            const loggedIn = await account.get();
-            setLoggedInUser(loggedIn);
-        } catch (err) {
-            console.error(err);
-            setLoggedInUser(null);
-        }
-    }
-
-    useEffect(() => {
-        init();
-    }, []);
-
-    async function login(email, password) {
-        await account.createEmailPasswordSession(email, password);
-        setLoggedInUser(await account.get());
-    }
+    console.log("The current cards are:", cards)
 
     return (
+        //consolidate into a login component
+        <>
+            <Navbar loggedInUser={loggedInUser} />
+            <Auth
+                loggedInUser={loggedInUser}
+                login={login}
+                logout={logout}
+                register={register}
+            />
+            <Cards
+                cards={cards}
+                getCards={getCards}
+                loggedInUser={loggedInUser}
+            />
 
-        <div>
-            <p>
-                {loggedInUser
-                    ? `Logged in as ${loggedInUser.name}`
-                    : "Not logged in"}
-            </p>
-
-            <form>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-
-                <button type="button" onClick={() => login(email, password)}>
-                    Login
-                </button>
-
-                <button
-                    type="button"
-                    onClick={async () => {
-                        await account.create(
-                            ID.unique(),
-                            email,
-                            password,
-                            name
-                        );
-                        login(email, password);
-                    }}
-                >
-                    Register
-                </button>
-
-                <button
-                    type="button"
-                    onClick={async () => {
-                        await account.deleteSession("current");
-                        setLoggedInUser(null);
-                    }}
-                >
-                    Logout
-                </button>
-            </form>
-        </div>
+            <Footer />
+        </>
     );
 };
 
