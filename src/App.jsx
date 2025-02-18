@@ -11,32 +11,36 @@ const App = () => {
     const { cards, getCards } = useCards();
     const [showAuthModal, setShowAuthModal] = useState(true);
 
-    if (!loggedInUser) {
-        return (
+    const handleLogout = () => {
+        logout();
+        setShowAuthModal(true);
+    };
+
+    return (
+        <>
             <AuthModal
-                isOpen={showAuthModal}
+                isOpen={!loggedInUser || showAuthModal}
                 onClose={() => setShowAuthModal(false)}
                 login={login}
                 register={register}
             />
-        );
-    }
+            {loggedInUser && (
+                <>
+                    <Navbar
+                        loggedInUser={loggedInUser}
+                        login={login}
+                        logout={handleLogout}
+                        register={register}
+                    />
+                    <Cards
+                        cards={cards}
+                        getCards={getCards}
+                        loggedInUser={loggedInUser}
+                    />
 
-    return (
-        <>
-            <Navbar
-                loggedInUser={loggedInUser}
-                login={login}
-                logout={logout}
-                register={register}
-            />
-            <Cards
-                cards={cards}
-                getCards={getCards}
-                loggedInUser={loggedInUser}
-            />
-
-            <Footer />
+                    <Footer />
+                </>
+            )}
         </>
     );
 };
