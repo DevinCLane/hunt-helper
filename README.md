@@ -3,7 +3,7 @@
 Imagine you are trying to land that job. There are so many tasks you need to complete to get the (job) hunt done right.
 
 -   You need to work on your professional checklist.
--   You need to share your progress on Twitter or BlueSky.
+-   You need to share your progress on LinkedIn or BlueSky.
 -   You need to work on your résumé.
 -   You need to find companies that are hiring.
 -   You need to find people at those companies to network with.
